@@ -32,7 +32,10 @@ $(function() {
          * and that the URL is not empty.
          */
          it('all feeds URL are defined and not empty', function() {
-
+            allFeeds.forEach(function (singleFeed) {
+              expect(singleFeed.url).toBeDefined;
+              expect(singleFeed.url.length).not.toBe(0);
+            });
          });
 
 
@@ -41,13 +44,19 @@ $(function() {
          * and that the name is not empty.
          */
          it('all feeds names are defined and not empty', function() {
-
+           allFeeds.forEach(function (singleFeed) {
+             expect(singleFeed.name).toBeDefined;
+             expect(typeof singleFeed.name).toBe("string")
+             expect(singleFeed.name.lenght).not.toBe(0);
+           });
          });
     });
 
 
     /* TODO: Write a new test suite named "The menu" */
     describe('The menu', function() {
+      const body = document.body;
+      const hamburgerMenu = document.querySelector('.menu-icon-link');
 
         /* TODO: Write a test that ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
@@ -55,7 +64,7 @@ $(function() {
          * hiding/showing of the menu element.
          */
          it('menu element is hidden by default', function() {
-
+           expect(body.classList).toContain("menu-hidden");
          });
 
          /* TODO: Write a test that ensures the menu changes
@@ -64,6 +73,18 @@ $(function() {
           * clicked and does it hide when clicked again.
           */
           it('menu visibility is toggled when clicked', function() {
+            hamburgerMenu.addEventListener('click', function() {
+              expect(hamburgerMenu.classList).not.toContain('menu-hidden');
+            })
+            hamburgerMenu.addEventListener('click', function() {
+              expect(hamburgerMenu.classlist).toContain('menu-hidden');
+            })
+
+            /* I think this works too :)
+            hamburgerMenu.addEventListener('click', function() {
+              expect(hamburgerMenu.classList).toToggle('menu-hidden');
+            })
+            */        
 
           });
 
