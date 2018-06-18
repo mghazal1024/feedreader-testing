@@ -84,7 +84,7 @@ $(function() {
             hamburgerMenu.addEventListener('click', function() {
               expect(hamburgerMenu.classList).toToggle('menu-hidden');
             })
-            */        
+            */
 
           });
 
@@ -94,6 +94,11 @@ $(function() {
     /* TODO: Write a new test suite named "Initial Entries" */
     describe('Initial Entries', function() {
 
+        beforeEach(function(done) {
+          loadFeed(0, function() {
+            done();
+          });
+        });
 
         /* TODO: Write a test that ensures when the loadFeed
          * function is called and completes its work, there is at least
@@ -101,21 +106,40 @@ $(function() {
          * Remember, loadFeed() is asynchronous so this test will require
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
-         it('a single .entry element is within the .feed container after loadFeed funtion is called and its work completed', function() {
 
+         it('a single .entry element is within the .feed container after loadFeed funtion is called and its work completed', function(done) {
+           const feed = document.querySelector(".feed");
+           const feedEntries = feed.getElementsByClassName('entry');
+
+           expect(feedEntries.length).toBeGreaterThan(0);
+           done();
          });
 
     });
 
     /* TODO: Write a new test suite named "New Feed Selection" */
     describe('New Feed Selection',function() {
+      const oldFeed = document.querySelector('.feed');
+      const oldFeedContent = oldFeed.innerHTML;
+
+        beforeEach(function(done) {
+          loadFeed(0, function() {
+
+            loadFeed(1, function() {
+              done();
+            });
+          });
+        });
 
         /* TODO: Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
-         it('content actually changes when a new feed is loaded', function() {
-
+         it('content actually changes when a new feed is loaded', function(done) {
+            const newFeed = document.querySelector(".feed");
+            const newFeedContent = newFeed.innerHTML;
+            expect(newFeedContent).not.toBe(oldFeedContent);
+            done();
          });
     });
 }());
