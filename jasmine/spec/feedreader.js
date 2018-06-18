@@ -73,19 +73,10 @@ $(function() {
           * clicked and does it hide when clicked again.
           */
           it('menu visibility is toggled when clicked', function() {
-            hamburgerMenu.addEventListener('click', function() {
-              expect(hamburgerMenu.classList).not.toContain('menu-hidden');
-            })
-            hamburgerMenu.addEventListener('click', function() {
-              expect(hamburgerMenu.classlist).toContain('menu-hidden');
-            })
-
-            /* I think this works too :)
-            hamburgerMenu.addEventListener('click', function() {
-              expect(hamburgerMenu.classList).toToggle('menu-hidden');
-            })
-            */
-
+            hamburgerMenu.click();
+            expect(body.className).not.toContain('menu-hidden');
+            hamburgerMenu.click();
+            expect(body.className).toContain('menu-hidden');
           });
 
     });
